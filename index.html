@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Website</title>
+    <style>
+        /* All CSS styles here */
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        header {
+            text-align: center;
+            padding: 20px;
+            background: #0077cc;
+            color: white;
+        }
+        h1 {
+            margin: 0;
+        }
+        nav {
+            margin: 20px 0;
+        }
+        nav a {
+            margin: 0 15px;
+            color: white;
+            text-decoration: none;
+        }
+        section {
+            margin: 20px 0;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #666;
+        }
+        @media (max-width: 600px) {
+            nav {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            nav a {
+                margin: 5px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>My Portfolio</h1>
+        <nav>
+            <a href="#projects">Projects</a>
+            <a href="#about">About Me</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+    
+    <section id="projects">
+        <h2>Projects</h2>
+        <ul id="project-list">
+            <!-- Project items will be dynamically inserted here -->
+        </ul>
+    </section>
+    
+    <section id="about">
+        <h2>About Me</h2>
+        <p>Welcome to my portfolio! I am a web developer with a passion for creating stunning web applications.</p>
+    </section>
+    
+    <section id="contact">
+        <h2>Contact Me</h2>
+        <form id="contact-form" onsubmit="return handleSubmit(event)">
+            <label for="name">Name:</label>
+            <input type="text" id="name" required>
+            <label for="email">Email:</label>
+            <input type="email" id="email" required>
+            <button type="submit">Send Message</button>
+        </form>
+        <p id="feedback" role="alert"></p>
+    </section>
+    
+    <footer>
+        <p>&copy; 2023 My Portfolio. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // Sample project data
+        const projects = [
+            { title: "Project One", description: "Description of project one." },
+            { title: "Project Two", description: "Description of project two." },
+            { title: "Project Three", description: "Description of project three." }
+        ];
+
+        // Load projects into the project list
+        function loadProjects() {
+            const projectList = document.getElementById('project-list');
+            projects.forEach((project) => {
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `<strong>${project.title}</strong>: ${project.description}`;
+                projectList.appendChild(listItem);
+            });
+        }
+
+        // Handle form submission
+        function handleSubmit(event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const feedback = document.getElementById('feedback');
+
+            try {
+                // Basic validation (could be extended)
+                if (!name || !email) {
+                    throw new Error("All fields are required.");
+                }
+                feedback.textContent = `Thank you, ${name}! Your message has been sent.`;
+                feedback.style.color = 'green';
+            } catch (error) {
+                feedback.textContent = `Error: ${error.message}`;
+                feedback.style.color = 'red';
+            }
+
+            // Clear form fields
+            event.target.reset();
+            return false; // Prevent page refresh
+        }
+
+        // Load the projects when the page loads
+        window.onload = loadProjects;
+    </script>
+</body>
+</html>
